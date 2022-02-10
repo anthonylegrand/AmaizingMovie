@@ -18,8 +18,11 @@ export default function AuthInput(props) {
                 placeholderTextColor = {GlobalStyles.COLORS["gray"]}
                 onFocus={()=>isSelected(true)}
                 onBlur={()=>isSelected(false)}
-                onChangeText={(text) => setvalue(text)}
-                value={value} />
+                onChangeText={(text) => {
+                    setvalue(text)
+                    props.setInput(text)
+                }}
+                value={props.value} />
 
             <View style={[styles.icon, styles.right_section, styles.icon_right]}>
                 <Image 
@@ -34,7 +37,9 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         position: 'relative',
-        right: 25
+        right: 25,
+        marginBottom: 15,
+        marginTop: 30
     },
     input: {
         paddingLeft: 55

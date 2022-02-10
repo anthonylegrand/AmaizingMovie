@@ -4,14 +4,26 @@ import GlobalStyles from './../constants/style';
 import fetchAPI from "./../utils/FetchAPI"
 
 import SearchInput from "./../component/SearchInput"
-import { useState } from 'react';
+import CategoriesButton from "./../component/CategoriesButton"
+import PopularPreview from "./../component/PopularPreview"
+
+import { useEffect, useState } from 'react';
+
+let flatList = null
 
 export default function HomeScreen(props) {
     let {navigation} = props
-    const [categories, setCategories] = useState([])
+    const [input_value, setInput] = useState("")
+    const [categorie, setCategorie] = useState({id: -1, name: "Popular"})
+    const [categories_list, setCategories_list] = useState([])
+    const [display_list, setdisplay_list] = useState([])
 
-    fetchAPI.fetch_themoviedb("genre/movie/list")
-        .then((json) => setCategories(json.genres))
+    useEffect(() => {
+        fetchAPI.fetch_themoviedb("genre/movie/list")
+        .then((json) => setCategories_list([{id: -1, name: "Popular"}, ...json.genres]))
+
+        updateDisplayList(categorie, setdisplay_list, setCategorie, setInput)
+    }, []);
     
     return (
         <View style={GlobalStyles.STYLES.container}>
@@ -33,49 +45,77 @@ export default function HomeScreen(props) {
                         source={require("./../../assets/icons/bell.png")}/>
                 </View>
 
-                <SearchInput />
+                <SearchInput 
+                    value={input_value} 
+                    setInput={text => updateInputText(text, setInput, setdisplay_list, ()=>setCategorie(categories_list[0]) )} />
 
                 <View>
                     <Text style={styles.section_title}>Categories</Text>
 
                     <FlatList 
-                            data={[
-                                {
-                                id: 28,
-                                name: "Action"
-                                },
-                                {
-                                id: 12,
-                                name: "Aventure"
-                                },
-                                {
-                                id: 16,
-                                name: "Animation"
-                                }]}
-                            keyExtractor={(item) => item.id} 
-                            renderItem={({item}) => {
-                                <Text style={{height: 20, backgroundColor: "red"}}>{item.name}</Text>
-                            }}
-                        />
-
-                    <Text>{JSON.stringify(categories)}</Text>
-
+                        data={categories_list}
+                        horizontal={true}
+                        showsHorizontalScrollIndicator={false}
+                        keyExtractor={(item) => item.id} 
+                        renderItem={({item}) => {
+                            return (<CategoriesButton 
+                                        title={item.name} 
+                                        selected={categorie.id === item.id} 
+                                        setCategorie={() => updateDisplayList(item, setdisplay_list, setCategorie, setInput)} />)
+                        }}
+                    />
                 </View>
 
                 <View>
-                    <Text style={styles.section_title}>Popular</Text>
+                    <Text style={styles.section_title}>
+                        {input_value 
+                            ? "Search : "+input_value 
+                            : categorie.name}
+                    </Text>
+
+                    <FlatList 
+                            ref={(ref) => { flatList = ref; }}
+                            data={display_list}
+                            horizontal={true}
+                            showsHorizontalScrollIndicator={false}
+                            keyExtractor={(item) => item.id} 
+                            renderItem={({item}) => {
+                                return <PopularPreview poster_path={item.poster_path} />
+                            }}
+                            initialNumToRender={3}
+                            style={{minHeight: 200}}
+                        />
                 </View>
             
             </View>
         </View>
     );
 }
+function updateInputText(text, setInput, setdisplay_list, setCategorie){
+    setInput(text)
+    setCategorie()
+    fetchDisplayList("search/movie", "&query="+text, setdisplay_list)
+}
+function updateDisplayList(categorie, setdisplay_list, setCategorie, setInput){
+    setCategorie(categorie)
+    setInput("")
+    if(categorie.id === -1)
+        fetchDisplayList("movie/popular", "", setdisplay_list)
+    else
+        fetchDisplayList("discover/movie", "&with_genres="+categorie.id, setdisplay_list)
+}
+
+function fetchDisplayList(url, query, setdisplay_list){
+    flatList?.scrollToOffset({ animated: true, y: 0 });
+    fetchAPI.fetch_themoviedb(url, query)
+        .then((json) => setdisplay_list(json.results))
+}
 
 const styles = StyleSheet.create({
     screen:{
         flexDirection: "column",
         justifyContent: 'space-between',
-        height: "100%"
+        height: "80%"
     },
     header: {
         flexDirection: 'row',
@@ -102,7 +142,7 @@ const styles = StyleSheet.create({
     },
     section_title: {
         color: GlobalStyles.COLORS["white"],
-        fontSize: 17,
+        fontSize: 18,
         fontWeight: 'bold',
         marginVertical: 15
     }

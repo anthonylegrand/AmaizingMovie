@@ -1,6 +1,5 @@
 import { TouchableOpacity, Pressable, Dimensions, StyleSheet, Image, Text, View } from 'react-native';
 import {LinearGradient} from 'expo-linear-gradient';
-import Constants from 'expo-constants';
 import { useState } from 'react';
 
 import GlobalStyles from './../constants/style';
