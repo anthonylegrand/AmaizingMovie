@@ -4517,7 +4517,7 @@
     "jscodeshift" "^0.11.0"
     "nullthrows" "^1.1.1"
 
-"react-native-gesture-handler@>= 1.0.0":
+"react-native-gesture-handler@^2.2.0", "react-native-gesture-handler@>= 1.0.0":
   "integrity" "sha512-WF25CNgn164bF9juW8N/jICIFXiEOgsxCuY7DRlnFdiH5ZfvMYtZHRC+zr1fFMap2ty1f2HWDQNVVSo0FDXP4A=="
   "resolved" "https://registry.npmjs.org/react-native-gesture-handler/-/react-native-gesture-handler-2.2.0.tgz"
   "version" "2.2.0"
@@ -4533,10 +4533,10 @@
   "resolved" "https://registry.npmjs.org/react-native-safe-area-context/-/react-native-safe-area-context-3.3.2.tgz"
   "version" "3.3.2"
 
-"react-native-screens@^3.11.0", "react-native-screens@>= 3.0.0":
-  "integrity" "sha512-4ml42gzxqcjIoPr0zNeN9AHNRK06v2VrF5McT+QpU1GXipehycJ1BBWfziMEsMKZiUeVy4TU7qFlHUuys2mlzw=="
-  "resolved" "https://registry.npmjs.org/react-native-screens/-/react-native-screens-3.11.0.tgz"
-  "version" "3.11.0"
+"react-native-screens@>= 3.0.0", "react-native-screens@~3.10.1":
+  "integrity" "sha512-bMKSpwMeqAoXBqTJiDEG1ogM1cMk66sEmpp/4dGqdX59v+OwMqPeTuBk37qaSuS7gPOFFKsNW2X3ymGvBT4iEw=="
+  "resolved" "https://registry.npmjs.org/react-native-screens/-/react-native-screens-3.10.2.tgz"
+  "version" "3.10.2"
   dependencies:
     "react-freeze" "^1.0.0"
     "warn-once" "^0.1.0"
