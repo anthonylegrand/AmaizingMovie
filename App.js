@@ -1,45 +1,23 @@
 import { StatusBar } from 'expo-status-bar';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
+import MovieScreen from "./src/screen/MovieScreen"
+import HomeScreen from "./src/screen/HomeScreen"
+import Authcreen from "./src/screen/AuthScreen"
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <StatusBar style="light"/>
+      <Stack.Navigator screenOptions={{headerShown: false}}>
+        <Stack.Screen name="Auth" component={Authcreen} />
         <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Shop" component={ShopScreen} />
+        <Stack.Screen name="Movie" component={MovieScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
-function HomeScreen ({navigation}) {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Pressable onPress={()=>navigation.navigate("Shop")}>
-        <Text>Home Screen</Text>
-      </Pressable>
-    </View>
-  );
-}
-function ShopScreen ({navigation}) {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Shop Screen</Text>
-    </View>
-  );
-}
-
 const Stack = createStackNavigator();
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
