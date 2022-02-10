@@ -13,7 +13,7 @@ export default function AuthInput(props) {
             <View style={styles.row}>
 
                 <TextInput 
-                    style={[styles.input, selected && styles.input_border]}
+                    style={[GlobalStyles.STYLES.input, selected && styles.input_border]}
                     placeholder={props.placeholder}
                     placeholderTextColor = {GlobalStyles.COLORS["gray"]}
                     secureTextEntry={props.label == "Password"}
@@ -42,16 +42,6 @@ export default function AuthInput(props) {
 }
 
 const styles = StyleSheet.create({
-    input: {
-        backgroundColor: GlobalStyles.COLORS["silver"],
-        color: GlobalStyles.COLORS["white"],
-        paddingVertical: 10,
-        paddingHorizontal: 15,
-        borderRadius: 10,
-        borderColor: GlobalStyles.COLORS["silver"],
-        borderWidth: 2,
-        width: "100%"
-    },
     input_border: {
         borderColor: GlobalStyles.COLORS["pink"]
     },

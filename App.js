@@ -12,8 +12,8 @@ export default function App() {
     <NavigationContainer>
       <StatusBar style="light"/>
       <Stack.Navigator screenOptions={{headerShown: false}}>
-        <Stack.Screen name="Auth" component={Authcreen} />
         <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Auth" component={Authcreen} />
         <Stack.Screen name="Movie" component={MovieScreen} />
       </Stack.Navigator>
     </NavigationContainer>

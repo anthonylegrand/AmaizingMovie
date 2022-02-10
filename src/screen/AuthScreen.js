@@ -14,7 +14,7 @@ export default function AuthScreen(props) {
     const [password, setpassword] = useState("")
     const [error, seterror] = useState("")
     return (
-        <View style={styles.container}>
+        <View style={GlobalStyles.STYLES.container}>
             
             <View style={styles.screen}>
                 <View style={styles.header}>
@@ -27,7 +27,7 @@ export default function AuthScreen(props) {
                 </View>
 
                 <View style={styles.authwith}>
-                    <Text style={styles.lore}>Log in with of following options.</Text>
+                    <Text style={GlobalStyles.STYLES.lore}>Log in with of following options.</Text>
                     <View style={styles.authwith_buttons}>
                         <TouchableOpacity activeOpacity={.5} style={[GlobalStyles.STYLES.icon, styles.largicon]} >
                             <Image 
@@ -69,7 +69,7 @@ export default function AuthScreen(props) {
                 <Text style={styles.error}>{error}</Text>
 
                 <View style={styles.footer}>
-                    <Text style={styles.lore}>Don't have account ? </Text>
+                    <Text style={GlobalStyles.STYLES.lore}>Don't have account ? </Text>
                     <Pressable>
                         <Text style={styles.pressable}>Sing up</Text>
                     </Pressable>
@@ -93,13 +93,6 @@ async function login_app(pseudo, password, seterror, navigate){
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    backgroundColor: GlobalStyles.COLORS["main-bg"],
-    paddingTop: Constants.statusBarHeight,
-    height: "100%"
-  },
   screen:{
     flexDirection: "column",
     justifyContent: 'space-between',
@@ -115,10 +108,6 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
       fontSize: 25,
       marginLeft: 20
-  },
-  lore: {
-    color: GlobalStyles.COLORS["gray"],
-    fontSize: 13
   },
   authwith: {
     flexDirection: 'column'
